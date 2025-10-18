@@ -12,25 +12,57 @@ export default function Carrito() {
     0
   );
 
-  const confirmarCompra = () => {
-    if (carrito.length === 0) {
+const confirmarCompra = async () => {
+  if (carrito.length === 0) {
+    Swal.fire({
+      icon: "warning",
+      title: "Carrito vacío",
+      text: "Agrega platillos antes de confirmar tu pedido.",
+      confirmButtonColor: "#e63946",
+    });
+    return;
+  }
+
+  try {
+    const res = await fetch("http://localhost:4000/api/pedidos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        productos: carrito.map((item) => ({
+          nombre: item.nombre,
+          precio: item.precio,
+        })),
+      }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
       Swal.fire({
-        icon: "warning",
-        title: "Carrito vacío",
-        text: "Agrega platillos antes de confirmar tu pedido.",
+        icon: "success",
+        title: "¡Pedido confirmado!",
+        text: data.mensaje,
         confirmButtonColor: "#e63946",
       });
-      return;
+      vaciarCarrito();
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: data.mensaje || "No se pudo guardar el pedido",
+        confirmButtonColor: "#e63946",
+      });
     }
-
+  } catch  {
     Swal.fire({
       icon: "success",
       title: "¡Pedido confirmado!",
-      text: "Tu orden fue registrada correctamente. ¡Gracias por tu compra!",
+      text: "Tu pedido pronto estará listo",
       confirmButtonColor: "#e63946",
     });
-    vaciarCarrito();
-  };
+  }
+};
+
 
   return (
     <section className="section">

@@ -7,36 +7,51 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// 🔹 CONFIGURACIÓN DE SQL SERVER (usuario giovanni)
+// =========================
+// 🔹 CONFIGURACIÓN DE SQL SERVER (Azure)
+// =========================
 const dbConfig = {
-  user: "giovanni",
-  password: "Giovanni123!",
-  server: "DESKTOP-VDTUKI5",
+   user: "paola_admin",
+  password: "P-123456",
+  server: "gourmethouse-sqlserver.database.windows.net",
   database: "Restaurante",
   options: {
-    trustServerCertificate: true,
+    encrypt: true,
+    trustServerCertificate: false
   },
 };
 
-// 🔹 FUNCIÓN PARA OBTENER UNA CONEXIÓN ACTIVA
+// =========================
+// 🔹 CONEXIÓN GLOBAL
+// =========================
 let poolPromise;
 async function getConnection() {
   if (!poolPromise) {
-    poolPromise = sql.connect(dbConfig)
-      .then(pool => {
+    poolPromise = sql
+      .connect(dbConfig)
+      .then((pool) => {
         console.log("✅ Conectado a la base de datos Restaurante correctamente");
         return pool;
       })
-      .catch(err => {
+      .catch((err) => {
         console.error("❌ Error al conectar a la base de datos:", err);
-        poolPromise = null; // si falla, limpiar para reintentar
+        poolPromise = null;
         throw err;
       });
   }
   return poolPromise;
 }
 
-// 🔹 ENDPOINT PARA GUARDAR RESERVAS
+// =========================
+// 🔹 ENDPOINT DE PRUEBA
+// =========================
+app.get("/", (req, res) => {
+  res.send("🍽️ API de GourmetHouse funcionando correctamente 🚀");
+});
+
+// =========================
+// 🔹 GUARDAR RESERVA
+// =========================
 app.post("/api/reservas", async (req, res) => {
   const { nombre, fecha, hora, personas } = req.body;
 
@@ -47,10 +62,9 @@ app.post("/api/reservas", async (req, res) => {
 
     const pool = await getConnection();
 
-    // 🔹 Convertir los valores correctamente
     const fechaSQL = new Date(fecha);
-    const [horas, minutos] = hora.split(":"); // separar HH:mm
-    const horaDate = new Date(0, 0, 0, parseInt(horas), parseInt(minutos)); // crear objeto Date solo con hora
+    const [horas, minutos] = hora.split(":");
+    const horaDate = new Date(0, 0, 0, parseInt(horas), parseInt(minutos));
     const personasNum = parseInt(personas);
 
     console.log("🧾 Datos recibidos:", { nombre, fechaSQL, horaDate, personasNum });
@@ -58,7 +72,7 @@ app.post("/api/reservas", async (req, res) => {
     const result = await pool.request()
       .input("nombre", sql.NVarChar(100), nombre)
       .input("fecha", sql.Date, fechaSQL)
-      .input("hora", sql.Time, horaDate) // 👈 pasamos un Date en lugar de string
+      .input("hora", sql.Time, horaDate)
       .input("personas", sql.Int, personasNum)
       .query(`
         INSERT INTO Reservas (nombre, fecha, hora, personas)
@@ -70,17 +84,15 @@ app.post("/api/reservas", async (req, res) => {
 
   } catch (error) {
     console.error("❌ Error al guardar reserva:", error);
-    res.status(500).json({
-      mensaje: "Error al guardar la reserva ❌",
-      detalle: error.message,
-    });
+    res.status(500).json({ mensaje: "Error al guardar la reserva ❌", detalle: error.message });
   }
 });
 
-
-// 🔹 ENDPOINT PARA GUARDAR PEDIDOS
+// =========================
+// 🔹 GUARDAR PEDIDOS
+// =========================
 app.post("/api/pedidos", async (req, res) => {
-  const { productos } = req.body;
+  const productos = Array.isArray(req.body.productos) ? req.body.productos : req.body;
   try {
     const pool = await getConnection();
 
@@ -101,12 +113,9 @@ app.post("/api/pedidos", async (req, res) => {
   }
 });
 
-// 🔹 INICIAR SERVIDOR
-const PORT = 4000;
-app.listen(PORT, () => console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`));
-
-
-// 🔹 Obtener todas las reservas
+// =========================
+// 🔹 OBTENER RESERVAS
+// =========================
 app.get("/api/reservas", async (req, res) => {
   try {
     const pool = await getConnection();
@@ -118,7 +127,9 @@ app.get("/api/reservas", async (req, res) => {
   }
 });
 
-// 🔹 Obtener todos los pedidos
+// =========================
+// 🔹 OBTENER PEDIDOS
+// =========================
 app.get("/api/pedidos", async (req, res) => {
   try {
     const pool = await getConnection();
@@ -130,7 +141,9 @@ app.get("/api/pedidos", async (req, res) => {
   }
 });
 
-// 🔹 Eliminar reserva
+// =========================
+// 🔹 ELIMINAR RESERVA
+// =========================
 app.delete("/api/reservas/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -138,11 +151,14 @@ app.delete("/api/reservas/:id", async (req, res) => {
     await pool.request().input("id", sql.Int, id).query("DELETE FROM Reservas WHERE id = @id");
     res.json({ mensaje: "Reserva eliminada correctamente ✅" });
   } catch (error) {
+    console.error("Error al eliminar reserva:", error);
     res.status(500).json({ mensaje: "Error al eliminar reserva ❌" });
   }
 });
 
-// 🔹 Eliminar pedido
+// =========================
+// 🔹 ELIMINAR PEDIDO
+// =========================
 app.delete("/api/pedidos/:id", async (req, res) => {
   const { id } = req.params;
   try {
@@ -150,11 +166,14 @@ app.delete("/api/pedidos/:id", async (req, res) => {
     await pool.request().input("id", sql.Int, id).query("DELETE FROM Pedidos WHERE id = @id");
     res.json({ mensaje: "Pedido eliminado correctamente ✅" });
   } catch (error) {
+    console.error("Error al eliminar pedido:", error);
     res.status(500).json({ mensaje: "Error al eliminar pedido ❌" });
   }
 });
 
+// =========================
 // 🔹 LOGIN SIMPLE
+// =========================
 app.post("/api/login", async (req, res) => {
   const { usuario, contrasena } = req.body;
 
@@ -175,3 +194,9 @@ app.post("/api/login", async (req, res) => {
     res.status(500).json({ success: false });
   }
 });
+
+// =========================
+// 🔹 INICIAR SERVIDOR
+// =========================
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`🚀 Servidor corriendo en puerto ${PORT}`));
