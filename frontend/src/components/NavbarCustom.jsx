@@ -9,7 +9,7 @@ export default function NavbarCustom() {
   return (
     <Navbar expand="lg" className="sticky-top">
       <Container>
-        <Navbar.Brand as={Link} to="/">🍴 GourmetHouse</Navbar.Brand>
+        <Navbar.Brand as={Link} to="/">🍴 El Sabor Escondido</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Nav className="me-auto" style={{ gap: "1rem" }}>

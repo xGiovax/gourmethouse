@@ -24,7 +24,7 @@ export default function Reservas() {
           icon: "success",
           title: "Reserva confirmada",
           text: data.mensaje,
-          confirmButtonColor: "#e63946",
+          confirmButtonColor: "#3D1F03",
         });
         setReserva({ nombre: "", fecha: "", hora: "", personas: "" });
       } else {
@@ -32,14 +32,14 @@ export default function Reservas() {
           icon: "error",
           title: "Ups",
           text: data.mensaje || "No se pudo guardar",
-          confirmButtonColor: "#e63946",
+          confirmButtonColor: "#3D1F03",
         });
       }
     } catch {
       Swal.fire({
         icon: "error",
         title: "Error de conexión",
-        confirmButtonColor: "#e63946",
+        confirmButtonColor: "#3d1f03",
       });
     }
   };

@@ -15,7 +15,7 @@ export default function Home() {
     <>
       <section className="hero"
         style={{
-        backgroundImage: `linear-gradient(rgba(230,57,70,0.75), rgba(230,57,70,0.75)), url(${pupusas})`,
+        backgroundImage: `linear-gradient(rgba(180, 120, 71, 0.75), rgba(68, 41, 23, 0.75)), url(${pupusas})`,
         backgroundPosition: "center",
         backgroundSize: "cover",
         color: "#fff",

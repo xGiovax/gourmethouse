@@ -38,7 +38,7 @@ export default function Admin() {
       showCancelButton: true,
       confirmButtonText: "Sí, eliminar",
       cancelButtonText: "Cancelar",
-      confirmButtonColor: "#e63946",
+      confirmButtonColor: "#3D1F03",
     });
 
     if (confirmar.isConfirmed) {
@@ -63,7 +63,7 @@ export default function Admin() {
       showCancelButton: true,
       confirmButtonText: "Sí, eliminar",
       cancelButtonText: "Cancelar",
-      confirmButtonColor: "#e63946",
+      confirmButtonColor: "#3D1F03",
     });
 
     if (confirmar.isConfirmed) {

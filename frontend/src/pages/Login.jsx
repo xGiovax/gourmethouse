@@ -24,7 +24,7 @@ export default function Login() {
     icon: "success",
     title: "Bienvenido",
     text: "Inicio de sesión exitoso",
-    confirmButtonColor: "#d63384",
+    confirmButtonColor: "#3D1F03",
   });
 
   // 🔹 Guardar sesión
@@ -37,7 +37,7 @@ export default function Login() {
     icon: "error",
     title: "Error",
     text: "Usuario o contraseña incorrectos",
-    confirmButtonColor: "#d63384",
+    confirmButtonColor: "#3D1F03",
   });
 }
 
@@ -77,7 +77,7 @@ export default function Login() {
           <button
             type="submit"
             className="btn w-100 text-white"
-            style={{ backgroundColor: "#d63384" }}
+            style={{ backgroundColor: "#3D1D03" }}
           >
             Ingresar
           </button>

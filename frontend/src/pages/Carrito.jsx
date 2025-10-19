@@ -18,7 +18,7 @@ const confirmarCompra = async () => {
       icon: "warning",
       title: "Carrito vacío",
       text: "Agrega platillos antes de confirmar tu pedido.",
-      confirmButtonColor: "#e63946",
+      confirmButtonColor: "#3D1F03",
     });
     return;
   }
@@ -42,7 +42,7 @@ const confirmarCompra = async () => {
         icon: "success",
         title: "¡Pedido confirmado!",
         text: data.mensaje,
-        confirmButtonColor: "#e63946",
+        confirmButtonColor: "#3D1F03",
       });
       vaciarCarrito();
     } else {
@@ -50,7 +50,7 @@ const confirmarCompra = async () => {
         icon: "error",
         title: "Error",
         text: data.mensaje || "No se pudo guardar el pedido",
-        confirmButtonColor: "#e63946",
+        confirmButtonColor: "#3D1F03",
       });
     }
   } catch  {
@@ -58,7 +58,7 @@ const confirmarCompra = async () => {
       icon: "success",
       title: "¡Pedido confirmado!",
       text: "Tu pedido pronto estará listo",
-      confirmButtonColor: "#e63946",
+      confirmButtonColor: "#3D1F03",
     });
   }
 };
