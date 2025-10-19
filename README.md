@@ -11,7 +11,7 @@ Con un diseño inspirado en la calidez del hogar salvadoreño, “El Sabor Escon
 
 ## 👩‍💻 Integrantes del Equipo de Desarrollo
 - **Paola Matilde Orellana Castillo** – Frontend Developer / Coordinadora  
-- **Giovanni Alberto Ruano Martínez** – Backend Developer / Base de Datos  
+- **Giovanni Alberto Ruano Martínez** – Backend Developer  
 - **Priscila Gámez** – Diseño UI/UX  
 - **Ana** – Documentación / Testing  
 - **Gabriela Vásquez** – Diseño gráfico / Soporte de contenido  
@@ -19,7 +19,8 @@ Con un diseño inspirado en la calidez del hogar salvadoreño, “El Sabor Escon
 ---
 
 ## 🧱 Arquitectura del Proyecto
-El proyecto **El Sabor Escondido** fue desarrollado bajo una arquitectura **Full Stack**, separando el **frontend** (interfaz del usuario) del **backend** (servidor y lógica de negocio), conectados mediante una **API REST**.
+El proyecto **El Sabor Escondido** fue desarrollado bajo una arquitectura **Full Stack simulada**, dividiendo el **frontend** (interfaz del usuario) y el **backend** (lógica del servidor), conectados mediante peticiones HTTP.  
+No utiliza base de datos, pero su estructura está preparada para integrarla fácilmente en futuras versiones.
 
 ---
 
@@ -39,11 +40,6 @@ El proyecto **El Sabor Escondido** fue desarrollado bajo una arquitectura **Full
 - **Express.js** – framework para el servidor  
 - **CORS** – permitir conexión entre dominios  
 - **Body-Parser** – manejo de datos JSON  
-- **MSSQL y msnodesqlv8** – conexión con **SQL Server 2022**
-
-### 🗃️ Base de Datos
-- **Microsoft SQL Server 2022**  
-Estructurada para manejar información de usuarios, productos, pedidos y reservas.
 
 ---
 
@@ -53,9 +49,9 @@ Estructurada para manejar información de usuarios, productos, pedidos y reserva
 |--------------|----------------|
 | **Visual Studio Code** | Edición y desarrollo de código |
 | **GitHub** | Control de versiones y respaldo del proyecto |
-| **Trello** | Organización del trabajo y asignación de tareas (metodología Scrum) |
+| **Trello / Notion** | Organización del trabajo, documentación y planificación |
 | **Figma / Canva** | Diseño de interfaz, logotipo y elementos gráficos |
-| **Postman** | Pruebas de endpoints de la API REST |
+| **Postman** | Pruebas de endpoints del backend |
 
 ---
 
@@ -70,16 +66,30 @@ Estructurada para manejar información de usuarios, productos, pedidos y reserva
 ---
 
 ## 🌐 Enlace al Sitio Web
-👉 https://gourmethouse.vercel.app/
+👉 [https://gourmethouse.vercel.app/](https://gourmethouse.vercel.app/)
 
 *(Desarrollado y desplegado en Vercel como parte del proyecto académico DAW – Universidad Don Bosco)*
 
 ---
 
+## 📚 Manuales del Proyecto
+
+| Manual | Enlace |
+|--------|---------|
+| 📘 **Manual de Usuario – El Sabor Escondido** | [Abrir en Notion](https://www.notion.so/Manual-de-Usuario-El-Sabor-Escondido-2917f1360fd6808bb1d9e5637c3b9f04?source=copy_link) |
+| 💻 **Manual del Programador – El Sabor Escondido** | [Abrir en Notion](https://www.notion.so/Manual-del-Programador-El-Sabor-Escondido-2917f1360fd6804f8ab1d16e5beb1d09?source=copy_link) |
+
+---
+Este proyecto está bajo la licencia Creative Commons Atribución-NoComercial 4.0 Internacional (CC BY-NC 4.0).
+Esto significa que se puede compartir y adaptar con fines educativos o personales, siempre que se dé crédito a los autores originales y no se utilice con fines comerciales.
+
+🔗 Más información: https://creativecommons.org/licenses/by-nc/4.0/
+---
+
 ## 🧩 Estructura del Proyecto
 
 ```bash
-gourmethouse/
+ElSaborEscondido/
 │
 ├── frontend/
 │   ├── src/
@@ -92,24 +102,13 @@ gourmethouse/
 │   └── package.json
 │
 ├── backend/
-│   ├── routes/              # Endpoints de la API
-│   ├── controllers/         # Lógica del negocio
-│   ├── db/                  # Conexión SQL Server
+│   ├── routes/              # Endpoints de la API simulada
+│   ├── controllers/         # Lógica del negocio sin base de datos
+│   ├── data/                # Archivos JSON con datos simulados
 │   ├── server.js            # Servidor principal Express
 │   └── package.json
 │
 └── README.md
 
----
-
-## 🪪 Licencia
-Este proyecto está bajo la licencia **Creative Commons Atribución-NoComercial 4.0 Internacional (CC BY-NC 4.0)**.  
-Esto significa que se puede compartir y adaptar con fines **educativos o personales**, siempre que se dé crédito a los autores originales y **no se utilice con fines comerciales**.
-
-🔗 Más información: [https://creativecommons.org/licenses/by-nc/4.0/](https://creativecommons.org/licenses/by-nc/4.0/)
-
----
-
-© 2025 – *Universidad Don Bosco*  
-Proyecto Académico de la asignatura **Desarrollo de Aplicaciones Web (DAW)**
-
+© 2025 – Universidad Don Bosco
+Proyecto Académico de la asignatura Desarrollo de Aplicaciones Web (DAW).
